@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Instagram UI</string>
+    <string name="title_activity_profile_screen">ProfileScreen</string>
+</resources>

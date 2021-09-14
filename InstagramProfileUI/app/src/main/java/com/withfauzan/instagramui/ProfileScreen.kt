@@ -1,6 +1,5 @@
 package com.withfauzan.instagramui.ui
 
-import android.icu.number.Scale
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -37,13 +36,28 @@ import com.withfauzan.instagramui.ImageWithText
 import com.withfauzan.instagramui.R
 import com.withfauzan.instagramui.ui.theme.InstagramUITheme
 
+
 @ExperimentalFoundationApi
 @Composable
 fun ProfileScreen(){
 
+// TODO Make Scrolabble
+
     var selectedTabIndex by remember {
         mutableStateOf(0)
     }
+
+    var listOfPost = listOf(
+        painterResource(id = R.drawable.post1),
+        painterResource(id = R.drawable.post2),
+        painterResource(id = R.drawable.post3),
+        painterResource(id = R.drawable.post4),
+        painterResource(id = R.drawable.post5),
+        painterResource(id = R.drawable.post6),
+        painterResource(id = R.drawable.post7),
+        painterResource(id = R.drawable.post8),
+        painterResource(id = R.drawable.post9))
+
     Column(modifier = Modifier.fillMaxSize()) {
         TopBar(
             name = "fauzan_ajipray",
@@ -51,69 +65,63 @@ fun ProfileScreen(){
         )
         Spacer(modifier = Modifier.height(4.dp))
 
-        ProfileSection()
-        Spacer(modifier = Modifier.height(25.dp))
-        ButtonSection(modifier = Modifier.fillMaxWidth())
-        Spacer(modifier = Modifier.height(25.dp))
-        HighlightSection(
-            highlights = listOf(
-                ImageWithText(
-                    image = painterResource(id = R.drawable.heighlight1),
-                    text = "1"
-                ),
-                ImageWithText(
-                    image = painterResource(id = R.drawable.heighlight2),
-                    text = "2"
-                ),
-                ImageWithText(
-                    image = painterResource(id = R.drawable.heighlight3),
-                    text = "3"
-                ),
-                ImageWithText(
-                    image = painterResource(id = R.drawable.heighlight4),
-                    text = "4"
-                ),
-            ),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 20.dp)
-        )
-        Spacer(modifier = Modifier.height(10.dp))
-        PostTabView(
-            imageWithTexts = listOf(
-                ImageWithText(
-                    image = painterResource(id = R.drawable.ic_grid),
-                    text = "Posts"
-                ),
-                ImageWithText(
-                    image = painterResource(id = R.drawable.ic_reels),
-                    text = "Reels"
-                ),
-                ImageWithText(
-                    image = painterResource(id = R.drawable.ic_igtv),
-                    text = "IGTV"
-                ),
-                ImageWithText(
-                    image = painterResource(id = R.drawable.profile),
-                    text = "Profile"
-                ),
-            )
-        ) {
-            selectedTabIndex = it
+        LazyColumn() {
+            item {
+                ProfileSection()
+                Spacer(modifier = Modifier.height(25.dp))
+                ButtonSection(modifier = Modifier.fillMaxWidth())
+                Spacer(modifier = Modifier.height(25.dp))
+                HighlightSection(
+                    highlights = listOf(
+                        ImageWithText(
+                            image = painterResource(id = R.drawable.heighlight1),
+                            text = "1"
+                        ),
+                        ImageWithText(
+                            image = painterResource(id = R.drawable.heighlight2),
+                            text = "2"
+                        ),
+                        ImageWithText(
+                            image = painterResource(id = R.drawable.heighlight3),
+                            text = "3"
+                        ),
+                        ImageWithText(
+                            image = painterResource(id = R.drawable.heighlight4),
+                            text = "4"
+                        ),
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp)
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+                PostTabView(
+                    imageWithTexts = listOf(
+                        ImageWithText(
+                            image = painterResource(id = R.drawable.ic_grid),
+                            text = "Posts"
+                        ),
+                        ImageWithText(
+                            image = painterResource(id = R.drawable.ic_reels),
+                            text = "Reels"
+                        ),
+                        ImageWithText(
+                            image = painterResource(id = R.drawable.ic_igtv),
+                            text = "IGTV"
+                        ),
+                        ImageWithText(
+                            image = painterResource(id = R.drawable.profile),
+                            text = "Profile"
+                        ),
+                    )
+                ) {
+                    selectedTabIndex = it
+                }
+            }
         }
         when(selectedTabIndex) {
             0 -> PostSection(
-                posts = listOf(
-                    painterResource(id = R.drawable.post1),
-                    painterResource(id = R.drawable.post2),
-                    painterResource(id = R.drawable.post3),
-                    painterResource(id = R.drawable.post4),
-                    painterResource(id = R.drawable.post5),
-                    painterResource(id = R.drawable.post6),
-                    painterResource(id = R.drawable.post7),
-                    painterResource(id = R.drawable.post8),
-                    painterResource(id = R.drawable.post9)
-                ),
+                posts = listOfPost,
                 modifier = Modifier.fillMaxWidth()
             )
         }

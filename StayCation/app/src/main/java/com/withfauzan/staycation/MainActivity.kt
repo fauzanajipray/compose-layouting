@@ -1,29 +1,25 @@
-package com.withfauzan.instagramui
+package com.withfauzan.staycation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
-import com.withfauzan.instagramui.ui.ProfileScreen
-import com.withfauzan.instagramui.ui.theme.InstagramUITheme
+import com.withfauzan.staycation.ui.screen.DiscoverScreen
+import com.withfauzan.staycation.ui.theme.StayCationTheme
 
 class MainActivity : ComponentActivity() {
-
-    @ExperimentalFoundationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            InstagramUITheme {
+            StayCationTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    CollapsingEffectScreen()
+                    DiscoverScreen()
                 }
             }
         }
     }
 }
+
+

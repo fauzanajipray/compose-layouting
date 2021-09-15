@@ -40,12 +40,11 @@ fun DiscoverScreen() {
             BottomBar(
                 listNav = ProvideData.listNav,
                 modifier = Modifier
-                    .shadow(elevation = 6.dp)
-                    .padding()
-                    .background(MaterialTheme
-                        .colors
-                        .background
-                        .copy(0.9f)
+                    .background(
+                        MaterialTheme
+                            .colors
+                            .background
+                            .copy(0.9f)
                     )
                     .fillMaxWidth()
                     .height(60.dp)
@@ -54,7 +53,9 @@ fun DiscoverScreen() {
     ) {
         LazyColumn(
             state = scrollState,
-            modifier = Modifier.fillMaxSize().padding(bottom = 70.dp)
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(bottom = 70.dp)
         ) {
             item {
                 TopBar(
@@ -239,35 +240,66 @@ fun BottomBar(
     var selectedNavIndex by remember {
         mutableStateOf(0)
     }
-
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceEvenly,
-        modifier = modifier
-    ) {
-        listNav.forEachIndexed { index, nav ->
-            var tint = if (isSystemInDarkTheme()) {
-                if (selectedNavIndex == index) Blue400 else Blue200
-            } else {
-                if (selectedNavIndex == index) Blue500 else Gray100
-            }
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .clickable {
-                        selectedNavIndex = index
-                    }
-                    .padding(16.dp)
-                    .clip(RoundedCornerShape(100.dp))
-            ){
-                Icon(
-                    painter = painterResource(id = nav.icon),
-                    contentDescription = nav.text,
-                    tint = tint
-                )
+    Column {
+        var color =  if (isSystemInDarkTheme()) Blue600 else Gray200
+        Spacer(modifier = Modifier
+            .fillMaxWidth()
+            .height(.5.dp)
+            .background(color = color)
+        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            modifier = modifier
+        ) {
+            listNav.forEachIndexed { index, nav ->
+                var tint = if (isSystemInDarkTheme()) {
+                    if (selectedNavIndex == index) Blue400 else Blue200
+                } else {
+                    if (selectedNavIndex == index) Blue500 else Gray100
+                }
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier
+                        .clickable {
+                            selectedNavIndex = index
+                        }
+                        .padding(16.dp)
+                        .clip(RoundedCornerShape(100.dp))
+                ){
+                    Icon(
+                        painter = painterResource(id = nav.icon),
+                        contentDescription = nav.text,
+                        tint = tint
+                    )
+                }
             }
         }
     }
+
 }
 
 
+@Preview("Discover Screen")
+@Preview("Discover Screen (dark)", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun DefaultPreview2() {
+    StayCationTheme {
+        Surface(color = MaterialTheme.colors.background) {
+            BottomBar(
+                listNav = ProvideData.listNav,
+                modifier = Modifier
+                    .shadow(elevation = 6.dp)
+                    .padding()
+                    .background(
+                        MaterialTheme
+                            .colors
+                            .background
+                            .copy(0.9f)
+                    )
+                    .fillMaxWidth()
+                    .height(60.dp)
+            )
+        }
+    }
+}

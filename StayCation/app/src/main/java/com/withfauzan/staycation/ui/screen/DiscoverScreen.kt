@@ -5,14 +5,14 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -36,11 +36,25 @@ fun DiscoverScreen() {
     val listCity = ProvideData.listCity
 
     Scaffold(
-
+        bottomBar = {
+            BottomBar(
+                listNav = ProvideData.listNav,
+                modifier = Modifier
+                    .shadow(elevation = 6.dp)
+                    .padding()
+                    .background(MaterialTheme
+                        .colors
+                        .background
+                        .copy(0.9f)
+                    )
+                    .fillMaxWidth()
+                    .height(60.dp)
+            )
+        }
     ) {
         LazyColumn(
             state = scrollState,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize().padding(bottom = 70.dp)
         ) {
             item {
                 TopBar(
@@ -216,27 +230,44 @@ fun CitySection(
     }
 }
 
-/*
+
 @Composable
 fun BottomBar(
     listNav: List<Type>,
-    modifier: Modifier = Modifier,
-    onNavSelected: (selectedIndex: Int) -> Unit
+    modifier: Modifier = Modifier
 ) {
+    var selectedNavIndex by remember {
+        mutableStateOf(0)
+    }
+
     Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceEvenly,
         modifier = modifier
     ) {
-
+        listNav.forEachIndexed { index, nav ->
+            var tint = if (isSystemInDarkTheme()) {
+                if (selectedNavIndex == index) Blue400 else Blue200
+            } else {
+                if (selectedNavIndex == index) Blue500 else Gray100
+            }
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                    .clickable {
+                        selectedNavIndex = index
+                    }
+                    .padding(16.dp)
+                    .clip(RoundedCornerShape(100.dp))
+            ){
+                Icon(
+                    painter = painterResource(id = nav.icon),
+                    contentDescription = nav.text,
+                    tint = tint
+                )
+            }
+        }
     }
 }
-
-@Preview("Discover Screen")
-@Preview("Discover Screen (dark)", uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-fun BottomBarPreview() {
-    BottomBar(ProvideData.listNav)
-}
-
- */
 
 

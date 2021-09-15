@@ -1,6 +1,5 @@
-package com.withfauzan.staycation.data
+package com.withfauzan.staycation.ui.component
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -10,27 +9,26 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
 fun Chip(
-    text : String,
-    icon : Painter,
-    colorTint : Color,
+    text: String,
+    iconId: Int,
+    colorTint: Color,
     modifier: Modifier = Modifier
 ) {
     Row(
-        horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
     ) {
         Icon(
-            painter = icon,
+            painter = painterResource(id = iconId),
             contentDescription = "type $text",
             tint = colorTint,
-            modifier = androidx.compose.ui.Modifier
+            modifier = Modifier
                 .size(34.dp)
                 .padding(end = 11.dp)
         )

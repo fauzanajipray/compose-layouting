@@ -1,8 +1,9 @@
 package com.withfauzan.staycation.data
 
+import androidx.annotation.DrawableRes
 import androidx.compose.ui.graphics.painter.Painter
 
 data class Type(
-    val icon : Painter,
+    @DrawableRes val icon: Int,
     val text : String
 )
